@@ -20,7 +20,7 @@ import seaborn as sns
 #import warnings
 import streamlit as st
 from streamlit_folium import st_folium
-from bokeh.models import Button
+from bokeh.models.widgets import Button
 from bokeh.models import CustomJS
 from streamlit_bokeh_events import streamlit_bokeh_events
 #warnings.filterwarnings('ignore')
