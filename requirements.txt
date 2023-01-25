@@ -11,3 +11,5 @@ seaborn==0.11.2
 matplotlib==3.5.2
 matplotlib-inline==0.1.6
 bokeh==2.2.0
+Flask==2.0.3
+Jinja2==3.1.1
