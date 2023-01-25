@@ -11,5 +11,9 @@ seaborn==0.11.2
 matplotlib==3.5.2
 matplotlib-inline==0.1.6
 bokeh==2.2.0
+click==8.0.4
 Flask==2.0.3
+itsdangerous==2.1.2
 Jinja2==3.1.1
+MarkupSafe==2.1.1
+Werkzeug==2.0.3
