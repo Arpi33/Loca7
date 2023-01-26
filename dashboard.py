@@ -305,13 +305,13 @@ def generate_dataset(dic):
     list_1=[]
     if (len(dic)>1):
         for i in dic.items():
-                key=pd.read_csv('.\FoodDataset\{}\{}_top_featured_bi.csv'.format(i[1],i[1]))
+                key=pd.read_csv('./FoodDataset/{}/{}_top_featured_bi.csv'.format(i[1],i[1]))
                 list_1.append(key)
             #except:
             #    st.write("Dataset not found")
     else:
         for i in cat_li:
-            key=pd.read_csv('.\FoodDatast\{}\{}_top_featured_bi.csv'.format(i,i))
+            key=pd.read_csv('./FoodDatast/{}/{}_top_featured_bi.csv'.format(i,i))
             list_1.append(key)   
         
         #intersect columns
