@@ -305,11 +305,11 @@ def generate_dataset(dic):
     list_1=[]
     if (len(dic)>1):
         for i in dic.items():
-            #try:
+            try:
                 key=pd.read_csv('./FoodDataset/{}/{}_top_featured_bi.csv'.format(i[1],i[1]))
                 list_1.append(key)
-            #except:
-             #   st.write("Dataset not found")
+            except:
+                st.write("Dataset not found")
     else:
         for i in cat_li:
             key=pd.read_csv('./FoodDataset/{}/{}_top_featured_bi.csv'.format(i,i))
@@ -557,7 +557,7 @@ if (a>0 and a<=3):
                 #msg1= predict(age,mood)
                 st.write(fin)
             #st.markdown(f'<p style="color:black;font-weight: bold;font-size:18px;">Here’s what we suggest: {}</p>', unsafe_allow_html=True)
-            except:
-                msg2='Required Data are missing, Please key in all the data.'
-                st.markdown(f'<p style="color:red;font-weight: bold;font-size:18px; border-radius:2%;">{msg2}</p>', unsafe_allow_html=True)
+            #except:
+             #   msg2='Required Data are missing, Please key in all the data.'
+              #  st.markdown(f'<p style="color:red;font-weight: bold;font-size:18px; border-radius:2%;">{msg2}</p>', unsafe_allow_html=True)
 
