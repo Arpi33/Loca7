@@ -511,15 +511,15 @@ if (a>0 and a<=3):
                     bus1=st.text_input("1st")
                     bus2=st.text_input("2nd")
                     bus3=st.text_input("3rd")
-                    dic = ({'key0':bus1,'key1':bus2,'key2':bus3})
+                    dic = ({'key0':bus1.lower(),'key1':bus2.lower(),'key2':bus3.lower()})
        elif(a== 2):
                     bus1=st.text_input("1st")
                     bus2=st.text_input("2nd")
-                    dic = ({'key0':bus1,'key1':bus2})
+                    dic = ({'key0':bus1.lower(),'key1':bus2.lower()})
                     
        elif(a==1):
                     bus1=st.text_input("1st")
-                    dic = ({'key0':bus1})
+                    dic = ({'key0':bus1.lower()})
     
                   
     with col[1]:
