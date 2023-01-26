@@ -294,7 +294,7 @@ def generate_dataset(dic):
     
     #get list of all datasets if user choose 1 dataset
     cat = df_yp[df_yp['Category']=='food and beverages']
-    cat_li=cat['Name'].value_counts().index[0:50]
+    cat_li=cat['Name'].value_counts().index[0:20]
     
     
     
