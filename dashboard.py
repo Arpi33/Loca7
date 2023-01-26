@@ -551,7 +551,7 @@ if (a>0 and a<=3):
     
     if(button):
         if(len(dic)>0):
-            try:
+            #try:
                 lat,lng=gigi(result)
                 fin= plot(dic,lat,lng)
                 #msg1= predict(age,mood)
