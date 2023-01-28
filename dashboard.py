@@ -486,7 +486,7 @@ def plot(dic,lat,lng):
             if dic[0] not in new_df['business_name']:
                 plt.title('Selected business is not recommended for this location. You are recommended with these following businesses', fontsize = 8)
     else:
-            plt.title('Recommended Businesses for given Location', fontsize = 10)
+            plt.title('Businesses with Potential Success for given Location', fontsize = 10)
         #plt.show()
     return fig
 
