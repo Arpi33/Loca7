@@ -304,12 +304,12 @@ def generate_dataset(dic):
             except:
                 st.write("Selected Business information is not currently available in out Database")
     else:
-        if dic[0] in cat_li:
+        #if dic[0] in cat_li:
             for i in cat_li:
                 key=pd.read_csv('.FoodDataset/{}/{}_top_featured_bi.csv'.format(i,i))
                 list_1.append(key)   
-        else:
-            st.write("Selected Business information is not currently available in out Database")
+        #else:
+         #   st.write("Selected Business information is not currently available in out Database")
         
         #intersect columns
     if(len(list_1)==3):
