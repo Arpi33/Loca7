@@ -401,9 +401,12 @@ def proceesing_data(gfinal,test_data):
     #align the columns
     test_data=test_data[gfinal.columns]
     try:
+        
+        msg1="Top Feature data of selected location within 500 meter"
+        st.markdown(f'<p style="color:BLACK;font-weight: bold;font-size:14px;border-radius:2%;">{result}</p>', unsafe_allow_html=True)
         st.write(test_data)
     except:
-        st.write("issue here")
+        st.write("No Feature Data found from selected location")
     #normalize by scaling the new data
     scaled_test = scaler.transform(test_data)
     scaled_test = pd.DataFrame(scaled_test, columns=test_data.columns)
@@ -548,7 +551,7 @@ button = st.button("Recommend")
     
 if(button):
         if(len(location)>0):
-           # try:
+            try:
                 lat,lng=gigi(result)
                 fin= plot(location,lat,lng)
                 #msg1= predict(age,mood)
@@ -556,7 +559,7 @@ if(button):
                 if st.button("Clear All"):
                      st.experimental_memo.clear()
             #st.markdown(f'<p style="color:black;font-weight: bold;font-size:18px;">Here’s what we suggest: {}</p>', unsafe_allow_html=True)
-            #except:
-             #   msg2='Required Data are missing, Please key in all the data.'
-              #  st.markdown(f'<p style="color:red;font-weight: bold;font-size:18px; border-radius:2%;">{msg2}</p>', unsafe_allow_html=True)
+            except:
+                msg2='Required Data are missing, Please key in all the data.'
+                st.markdown(f'<p style="color:red;font-weight: bold;font-size:18px; border-radius:2%;">{msg2}</p>', unsafe_allow_html=True)
 
