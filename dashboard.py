@@ -505,7 +505,7 @@ st.image(image)
 st.markdown("<h1 style='text-align: center; color: #5ca128;marginTop: -85px'>Location Analytics</h1>", unsafe_allow_html=True)
 
 try:
-    key=pd.read_csv('.FoodDataset\kfc\kfc_top_featured_bi.csv')
+    key=pd.read_csv('.FoodDataset/kfc/kfc_top_featured_bi.csv')
 except:
     st.write("issue here")
 
