@@ -509,7 +509,7 @@ col=st.columns(2)
 with col[0]: 
     location = st.multiselect("Please Select your business here?", (cw))
 
-    dic=location
+    #dic=location
     
                   
 with col[1]:
@@ -544,10 +544,10 @@ def gigi(result):
 button = st.button("Recommend")
     
 if(button):
-        if(len(dic)>0):
+        if(len(location)>0):
            # try:
                 lat,lng=gigi(result)
-                fin= plot(dic,lat,lng)
+                fin= plot(location,lat,lng)
                 #msg1= predict(age,mood)
                 st.write(fin)
                 if st.button("Clear All"):
