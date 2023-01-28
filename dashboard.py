@@ -299,14 +299,14 @@ def generate_dataset(dic):
     if (len(dic)>1):
         for i in dic:
             try:
-                key=pd.read_csv('./FoodDataset/{}/{}_top_featured_bi.csv'.format(i,i))
+                key=pd.read_csv('.FoodDataset/{}/{}_top_featured_bi.csv'.format(i,i))
                 list_1.append(key)
             except:
                 st.write("Selected Business information is not currently available in out Database")
     else:
         if dic[0] in cat_li:
             for i in cat_li:
-                key=pd.read_csv('./FoodDataset/{}/{}_top_featured_bi.csv'.format(i,i))
+                key=pd.read_csv('.FoodDataset/{}/{}_top_featured_bi.csv'.format(i,i))
                 list_1.append(key)   
         else:
             st.write("Selected Business information is not currently available in out Database")
@@ -486,7 +486,7 @@ def plot(dic,lat,lng):
             if dic[0] not in new_df['business_name']:
                 plt.title('Selected business is not recommended for this location. You are recommended with these following businesses', fontsize = 8)
     else:
-            plt.title('Businesses with Potential Success for given Location', fontsize = 10)
+            plt.title('Businesses with potential success for given Location', fontsize = 10)
         #plt.show()
     return fig
 
@@ -547,6 +547,7 @@ if(button):
             try:
                 lat,lng=gigi(result)
                 fin= plot(dic,lat,lng)
+                #msg1= predict(age,mood)
                 st.write(fin)
                 if st.button("Clear All"):
                      st.experimental_memo.clear()
