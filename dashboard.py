@@ -544,15 +544,15 @@ button = st.button("Recommend")
     
 if(button):
         if(len(dic)>0):
-            #try:
+            try:
                 lat,lng=gigi(result)
                 fin= plot(dic,lat,lng)
                 #msg1= predict(age,mood)
                 st.write(fin)
-             #   if st.button("Clear All"):
-              #       st.experimental_memo.clear()
+                if st.button("Clear All"):
+                     st.experimental_memo.clear()
             #st.markdown(f'<p style="color:black;font-weight: bold;font-size:18px;">Here’s what we suggest: {}</p>', unsafe_allow_html=True)
-           # except:
-            #    msg2='Required Data are missing, Please key in all the data.'
-             #   st.markdown(f'<p style="color:red;font-weight: bold;font-size:18px; border-radius:2%;">{msg2}</p>', unsafe_allow_html=True)
+            except:
+                msg2='Required Data are missing, Please key in all the data.'
+                st.markdown(f'<p style="color:red;font-weight: bold;font-size:18px; border-radius:2%;">{msg2}</p>', unsafe_allow_html=True)
 
