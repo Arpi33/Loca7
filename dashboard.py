@@ -23,6 +23,7 @@ from streamlit_folium import st_folium
 from bokeh.models import Button
 from bokeh.models import CustomJS
 from streamlit_bokeh_events import streamlit_bokeh_events
+from pathlib import Path
 #warnings.filterwarnings('ignore')
 
 
@@ -298,18 +299,17 @@ def generate_dataset(dic):
     list_1=[]
     if (len(dic)>1):
         for i in dic:
-            st.write(i)
+            #st.write(i)
             try:
-                key=pd.read_csv('.FoodDataset/{}/{}_top_featured_bi.csv'.format(i,i))
-                
+                key= Path(__file__).parents[1] / 'FoodDataset/{}/{}_Burhenn_Pitches.csv'.format(i,i)
                 list_1.append(key)
             except:
                 st.write("Selected Business information is not currently available in out Database")
     else:
-        st.write(i)
+        #st.write(i)
         if dic[0] in cat_li:
             for i in cat_li:
-                key=pd.read_csv('.FoodDataset/{}/{}_top_featured_bi.csv'.format(i,i))
+                key= Path(__file__).parents[1] / 'FoodDataset/{}/{}_Burhenn_Pitches.csv'.format(i,i)
                 list_1.append(key)   
         #else:
          #   st.write("Selected Business information is not currently available in out Database")
@@ -499,27 +499,20 @@ from PIL import Image
 image = Image.open('tm-life-made-easier.jpg')
 image = image.resize((670, 200))
 st.image(image)
-from pathlib import Path
 
-garret_burhenn_pitches_csv = Path(__file__).parents[1] / 'GarretBurhennData/Garret_Burhenn_Pitches.csv'
+
+#garret_burhenn_pitches_csv = Path(__file__).parents[1] / 'GarretBurhennData/Garret_Burhenn_Pitches.csv'
 
 #st.set_page_config(layout="wide")
 st.markdown("<h1 style='text-align: center; color: #5ca128;marginTop: -85px'>Location Analytics</h1>", unsafe_allow_html=True)
 
-try:
-    garret_burhenn_pitches_csv = Path(__file__).parents[1] / 'FoodDataset/kfc/kfc_Burhenn_Pitches.csv'
-    st.write("Fuck")
-except:
-    st.write("issue here")
+#debug
+
 
 col=st.columns(2)
 
 with col[0]: 
     location = st.multiselect("Please Select your business here?", (category))
-    #st.write(location)
-
-    #dic=location
-    
                   
 with col[1]:
         
