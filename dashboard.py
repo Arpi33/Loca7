@@ -23,7 +23,6 @@ from streamlit_folium import st_folium
 from bokeh.models import Button
 from bokeh.models import CustomJS
 from streamlit_bokeh_events import streamlit_bokeh_events
-from pathlib import Path
 #warnings.filterwarnings('ignore')
 
 
@@ -299,23 +298,20 @@ def generate_dataset(dic):
     list_1=[]
     if (len(dic)>1):
         for i in dic:
-            #st.write(i)
             try:
-                key= pd.read_csv('./FoodDataset/{}/{}_top_featured_bi.csv'.format(i,i))
+                key=pd.read_csv('./FoodDataset/{}/{}_top_featured_bi.csv'.format(i,i))
                 list_1.append(key)
             except:
                 st.write("Selected Business information is not currently available in out Database")
     else:
-        #st.write(i)
         if dic[0] in cat_li:
             for i in cat_li:
-                key= pd.read_csv('./FoodDataset/{}/{}_top_featured_bi.csv'.format(i,i))
+                key=pd.read_csv('./FoodDataset/{}/{}_top_featured_bi.csv'.format(i,i))
                 list_1.append(key)   
-        #else:
-         #   st.write("Selected Business information is not currently available in out Database")
+        else:
+            st.write("Selected Business information is not currently available in out Database")
         
         #intersect columns
-    st.write(list_1)
     if(len(list_1)==3):
         a=np.intersect1d(list_1[0].columns,list_1[1].columns)
         b=np.intersect1d(a,list_1[2].columns)
@@ -502,18 +498,18 @@ image = image.resize((670, 200))
 st.image(image)
 
 
-#garret_burhenn_pitches_csv = Path(__file__).parents[1] / 'GarretBurhennData/Garret_Burhenn_Pitches.csv'
-
 #st.set_page_config(layout="wide")
 st.markdown("<h1 style='text-align: center; color: #5ca128;marginTop: -85px'>Location Analytics</h1>", unsafe_allow_html=True)
 
-#debug
 
 
 col=st.columns(2)
 
 with col[0]: 
     location = st.multiselect("Please Select your business here?", (category))
+
+    dic=location
+    
                   
 with col[1]:
         
@@ -547,16 +543,16 @@ def gigi(result):
 button = st.button("Recommend")
     
 if(button):
-        if(len(location)>0):
-           # try:
+        if(len(dic)>0):
+            try:
                 lat,lng=gigi(result)
-                fin= plot(location,lat,lng)
+                fin= plot(dic,lat,lng)
                 #msg1= predict(age,mood)
                 st.write(fin)
                 if st.button("Clear All"):
                      st.experimental_memo.clear()
             #st.markdown(f'<p style="color:black;font-weight: bold;font-size:18px;">Here’s what we suggest: {}</p>', unsafe_allow_html=True)
-            #except:
-             #   msg2='Required Data are missing, Please key in all the data.'
-              #  st.markdown(f'<p style="color:red;font-weight: bold;font-size:18px; border-radius:2%;">{msg2}</p>', unsafe_allow_html=True)
+            except:
+                msg2='Required Data are missing, Please key in all the data.'
+                st.markdown(f'<p style="color:red;font-weight: bold;font-size:18px; border-radius:2%;">{msg2}</p>', unsafe_allow_html=True)
 
