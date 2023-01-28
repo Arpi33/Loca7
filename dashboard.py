@@ -508,7 +508,7 @@ st.markdown("<h1 style='text-align: center; color: #5ca128;marginTop: -85px'>Loc
 
 try:
     garret_burhenn_pitches_csv = Path(__file__).parents[1] / 'FoodDataset/kfc/kfc_Burhenn_Pitches.csv'
-
+    st.write("Fuck")
 except:
     st.write("issue here")
 
