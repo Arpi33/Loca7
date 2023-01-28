@@ -499,13 +499,16 @@ from PIL import Image
 image = Image.open('tm-life-made-easier.jpg')
 image = image.resize((670, 200))
 st.image(image)
+from pathlib import Path
 
+garret_burhenn_pitches_csv = Path(__file__).parents[1] / 'GarretBurhennData/Garret_Burhenn_Pitches.csv'
 
 #st.set_page_config(layout="wide")
 st.markdown("<h1 style='text-align: center; color: #5ca128;marginTop: -85px'>Location Analytics</h1>", unsafe_allow_html=True)
 
 try:
-    key=pd.read_csv('kfc_top_featured_bi.csv')
+    garret_burhenn_pitches_csv = Path(__file__).parents[1] / 'FoodDataset/kfc/kfc_Burhenn_Pitches.csv'
+
 except:
     st.write("issue here")
 
