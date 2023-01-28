@@ -20,7 +20,7 @@ import seaborn as sns
 #import warnings
 import streamlit as st
 from streamlit_folium import st_folium
-from bokeh.models.widgets import Button
+from bokeh.models import Button
 from bokeh.models import CustomJS
 from streamlit_bokeh_events import streamlit_bokeh_events
 #warnings.filterwarnings('ignore')
@@ -41,8 +41,10 @@ def read_data():
     #population by gender
     df_detailed_pop = pd.read_csv("population_by_gender.csv",low_memory=False)
     #return df_yp,df_brickz,df_total_pop,df_detailed_pop
-    
-#read_data()
+
+#business category    
+df=pd.read_csv("business_name.csv")
+category=df['Business_name'].tolist()
 
 # Vectorized version of haversine func
 # To calculate distance
@@ -288,31 +290,26 @@ def intersection_of_dfs(dfs_array):
         length = len(dfs)
     return dfs[0].columns
 
-
-#pass user input function as a parameter
 def generate_dataset(dic):
     
-    #get list of all datasets if user choose 1 dataset
     cat = df_yp[df_yp['Category']=='food and beverages']
-    cat_li=cat['Name'].value_counts().index[0:20]
-    
-    
-    
-    #dic=user_input()
-    #dic = ({'key0':value1,'key1':value2,'key2':value3})
-
+    cat_li =cat['Name'].value_counts().index[0:20]
     print(dic)
     list_1=[]
     if (len(dic)>1):
-        for i in dic.items():
-                key=pd.read_csv('./FoodDataset/{}/{}_top_featured_bi.csv'.format(i[1],i[1]))
+        for i in dic:
+            try:
+                key=pd.read_csv('./FoodDataset/{}/{}_top_featured_bi.csv'.format(i,i))
                 list_1.append(key)
-            #except:
-            #    st.write("Dataset not found")
+            except:
+                st.write("Selected Business information is not currently available in out Database")
     else:
-        for i in cat_li:
-            key=pd.read_csv('./FoodDataset/{}/{}_top_featured_bi.csv'.format(i,i))
-            list_1.append(key)   
+        if dic[0] in cat_li:
+            for i in cat_li:
+                key=pd.read_csv('./FoodDataset/{}/{}_top_featured_bi.csv'.format(i,i))
+                list_1.append(key)   
+        else:
+            st.write("Selected Business information is not currently available in out Database")
         
         #intersect columns
     if(len(list_1)==3):
@@ -339,7 +336,7 @@ def generate_dataset(dic):
 
 
 def proceesing_data(gfinal,test_data):
-       
+ 
     #intersect columns with unseen data point
     for i in gfinal.columns:
         if i not in test_data.columns:
@@ -453,7 +450,7 @@ def get_similarity(dic,lat,lng):
     return similarity,dic
 
 
-
+@st.experimental_memo
 def plot(dic,lat,lng):
     
     
@@ -466,7 +463,7 @@ def plot(dic,lat,lng):
     
     
     #plt.figure(figsize=(12,8))
-    fig= plt.figure(figsize=(18,15))
+    fig= plt.figure(figsize=(8,6))
 
     
     splot=sns.barplot( x='business_name',y='mean',data=new_df)
@@ -475,62 +472,58 @@ def plot(dic,lat,lng):
         splot.annotate(format(p.get_height()),
                        (p.get_x() + p.get_width() / 2., p.get_height()),
                        ha='center', va='center',
-                       xytext=(10, 20),
+                       xytext=(0, 10),
                        textcoords='offset points')
     
     
        # plt.ylim([0,30])
-    plt.xticks(rotation = 0, fontsize = 20)
-    plt.yticks(fontsize = 20)
-    plt.xlabel('Business Name', fontsize = 20)
-    plt.ylabel('Similarity in percentage', fontsize = 20)
-    if len(new_df)>3:
-        if dic['key0'] not in new_df['business_name']:
-            plt.title('Selected business is not recommended for this location. You are recommended with these following businesses', fontsize = 15)
+    plt.xticks(rotation = 0, fontsize = 10)
+    plt.yticks(fontsize = 10)
+    plt.xlabel('Business Name', fontsize = 10)
+    plt.ylabel('Similarity in percentage', fontsize = 10)
+    if (len(dic)<2):
+        #if len(new_df)>3:
+            if dic[0] not in new_df['business_name']:
+                plt.title('Selected business is not recommended for this location. You are recommended with these following businesses', fontsize = 8)
     else:
-        plt.title('Recommended Businesses for given Location', fontsize = 20)
+            plt.title('Recommended Businesses for given Location', fontsize = 10)
         #plt.show()
     return fig
 
 
+from PIL import Image
+
+image = Image.open('tm-life-made-easier.jpg')
+image = image.resize((670, 200))
+st.image(image)
 
 
 #st.set_page_config(layout="wide")
-st.markdown("<h1 style='text-align: center; color: grey;marginTop: -85px'>Location Analytics</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #5ca128;marginTop: -85px'>Location Analytics</h1>", unsafe_allow_html=True)
 
-a=st.number_input("How many business?",min_value=0, max_value=3)
 
-if (a>0 and a<=3):
-    col=st.columns(2)
-        
-    with col[0]:
-            
-    
-       if(a==3):
-                    bus1=st.text_input("1st")
-                    bus2=st.text_input("2nd")
-                    bus3=st.text_input("3rd")
-                    dic = ({'key0':bus1.lower(),'key1':bus2.lower(),'key2':bus3.lower()})
-       elif(a== 2):
-                    bus1=st.text_input("1st")
-                    bus2=st.text_input("2nd")
-                    dic = ({'key0':bus1.lower(),'key1':bus2.lower()})
-                    
-       elif(a==1):
-                    bus1=st.text_input("1st")
-                    dic = ({'key0':bus1.lower()})
+
+col=st.columns(2)
+
+with col[0]: 
+    location = st.multiselect("Please Select your business here?", (category))
+
+    dic=location
     
                   
-    with col[1]:
-          loc_button = Button(label="Allow access to your current location")
-          loc_button.js_on_event("button_click", CustomJS(code="""
+with col[1]:
+        
+        txt="Please Click the bellow button for the location access"
+        st.markdown(f'<p style="color:BLACK;font-size:14px;border-radius:2%;">{txt}</p>', unsafe_allow_html=True)
+        loc_button = Button(label="Allow access to your current location")
+        loc_button.js_on_event("button_click", CustomJS(code="""
                         navigator.geolocation.getCurrentPosition(
                             (loc) => {
                                 document.dispatchEvent(new CustomEvent("GET_LOCATION", {detail: {lat: loc.coords.latitude, lon: loc.coords.longitude}}))
                             }
                         )
                         """))
-          result = streamlit_bokeh_events(
+        result = streamlit_bokeh_events(
                         loc_button,
                         events="GET_LOCATION",
                         key="get_location",
@@ -538,23 +531,25 @@ if (a>0 and a<=3):
                         override_height=75,
                         debounce_time=0)
           #st.write(result) 
-          st.markdown(f'<p style="color:green;font-weight: bold;font-size:14px;border-radius:2%;">{result}</p>', unsafe_allow_html=True)
+        if result:
+            st.markdown(f'<p style="color:green;font-weight: bold;font-size:14px;border-radius:2%;">{result}</p>', unsafe_allow_html=True)
           
-    def gigi(result):
+def gigi(result):
         lat=  result['GET_LOCATION']['lat']
         lng = result['GET_LOCATION']['lon']
         return lat,lng      
                 #st.markdown(f'<p style="color:BLACK;font-weight: bold;font-size:14px;border-radius:2%;">{result}</p>', unsafe_allow_html=True)
            
-    button = st.button("Recommend")
+button = st.button("Recommend")
     
-    if(button):
+if(button):
         if(len(dic)>0):
             try:
                 lat,lng=gigi(result)
                 fin= plot(dic,lat,lng)
-                #msg1= predict(age,mood)
                 st.write(fin)
+                if st.button("Clear All"):
+                     st.experimental_memo.clear()
             #st.markdown(f'<p style="color:black;font-weight: bold;font-size:18px;">Here’s what we suggest: {}</p>', unsafe_allow_html=True)
             except:
                 msg2='Required Data are missing, Please key in all the data.'
