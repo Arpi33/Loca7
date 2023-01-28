@@ -315,7 +315,7 @@ def generate_dataset(dic):
          #   st.write("Selected Business information is not currently available in out Database")
         
         #intersect columns
-    st.write(list_1)
+    #st.write(list_1)
     if(len(list_1)==3):
         a=np.intersect1d(list_1[0].columns,list_1[1].columns)
         b=np.intersect1d(a,list_1[2].columns)
