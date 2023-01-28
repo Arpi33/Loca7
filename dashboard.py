@@ -294,7 +294,7 @@ def generate_dataset(dic):
     
     #get list of all datasets if user choose 1 dataset
     cat = df_yp[df_yp['Category']=='food and beverages']
-    cat_li=cat['Name'].value_counts().index[0:50]
+    cat_li=cat['Name'].value_counts().index[0:20]
     
     
     
@@ -305,14 +305,13 @@ def generate_dataset(dic):
     list_1=[]
     if (len(dic)>1):
         for i in dic.items():
-            try:
                 key=pd.read_csv('./FoodDataset/{}/{}_top_featured_bi.csv'.format(i[1],i[1]))
                 list_1.append(key)
-            except:
-                st.write("Dataset not found")
+            #except:
+            #    st.write("Dataset not found")
     else:
         for i in cat_li:
-            key=pd.read_csv('./FoodDataset/{}/{}_top_featured_bi.csv'.format(i[1],i[1]))
+            key=pd.read_csv('./FoodDataset/{}/{}_top_featured_bi.csv'.format(i,i))
             list_1.append(key)   
         
         #intersect columns
@@ -511,15 +510,15 @@ if (a>0 and a<=3):
                     bus1=st.text_input("1st")
                     bus2=st.text_input("2nd")
                     bus3=st.text_input("3rd")
-                    dic = ({'key0':bus1,'key1':bus2,'key2':bus3})
+                    dic = ({'key0':bus1.lower(),'key1':bus2.lower(),'key2':bus3.lower()})
        elif(a== 2):
                     bus1=st.text_input("1st")
                     bus2=st.text_input("2nd")
-                    dic = ({'key0':bus1,'key1':bus2})
+                    dic = ({'key0':bus1.lower(),'key1':bus2.lower()})
                     
        elif(a==1):
                     bus1=st.text_input("1st")
-                    dic = ({'key0':bus1})
+                    dic = ({'key0':bus1.lower()})
     
                   
     with col[1]:
