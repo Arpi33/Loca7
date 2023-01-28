@@ -43,8 +43,8 @@ def read_data():
     #return df_yp,df_brickz,df_total_pop,df_detailed_pop
 
 #business category    
-df=pd.read_csv("business_name.csv")
-category=df['Business_name'].tolist()
+df_m=pd.read_csv("business_name.csv")
+cw=df_m['Business_name'].tolist()
 
 # Vectorized version of haversine func
 # To calculate distance
@@ -312,7 +312,7 @@ def generate_dataset(dic):
             st.write("Selected Business information is not currently available in out Database")
         
         #intersect columns
-    st.write(list_1)
+    #st.write(list_1)
     if(len(list_1)==3):
         a=np.intersect1d(list_1[0].columns,list_1[1].columns)
         b=np.intersect1d(a,list_1[2].columns)
@@ -507,7 +507,7 @@ st.markdown("<h1 style='text-align: center; color: #5ca128;marginTop: -85px'>Loc
 col=st.columns(2)
 
 with col[0]: 
-    location = st.multiselect("Please Select your business here?", (category))
+    location = st.multiselect("Please Select your business here?", (cw))
 
     dic=location
     
