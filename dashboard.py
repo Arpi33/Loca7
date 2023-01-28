@@ -403,7 +403,7 @@ def proceesing_data(gfinal,test_data):
     try:
         
         msg1="Top Feature data of selected location within 500 meter"
-        st.markdown(f'<p style="color:BLACK;font-weight: bold;font-size:14px;border-radius:2%;">{result}</p>', unsafe_allow_html=True)
+        st.markdown(f'<p style="color:BLACK;font-weight: bold;font-size:14px;border-radius:2%;">{msg1}</p>', unsafe_allow_html=True)
         st.write(test_data)
     except:
         st.write("No Feature Data found from selected location")
