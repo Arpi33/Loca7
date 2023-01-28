@@ -400,13 +400,13 @@ def proceesing_data(gfinal,test_data):
 
     #align the columns
     test_data=test_data[gfinal.columns]
-    try:
-        
-        msg1="Top Feature data of selected location within 500 meter"
-        st.markdown(f'<p style="color:BLACK;font-weight: bold;font-size:14px;border-radius:2%;">{msg1}</p>', unsafe_allow_html=True)
-        st.write(test_data)
-    except:
-        st.write("No Feature Data found from selected location")
+    #try:
+     #   
+      #  msg1="Top Feature data of selected location within 500 meter"
+        #st.markdown(f'<p style="color:BLACK;font-weight: bold;font-size:14px;border-radius:2%;">{msg1}</p>', unsafe_allow_html=True)
+        #st.write(test_data)
+    #except:
+     #   st.write("No Feature Data found from selected location")
     #normalize by scaling the new data
     scaled_test = scaler.transform(test_data)
     scaled_test = pd.DataFrame(scaled_test, columns=test_data.columns)
