@@ -507,6 +507,7 @@ col=st.columns(2)
 
 with col[0]: 
     location = st.multiselect("Please Select your business here?", (category))
+    st.write(location)
 
     dic=location
     
