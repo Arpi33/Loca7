@@ -577,7 +577,7 @@ def upload_predict(upload_image, model):
 
 
 
-file = st.file_uploader("Upload the image to be classified", type=["jpg", "png"])
+file = st.file_uploader("Upload the image to be classified", type=["jpg","jpeg", "png"])
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
 
