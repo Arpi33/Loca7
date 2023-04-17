@@ -26,6 +26,16 @@ from streamlit_bokeh_events import streamlit_bokeh_events
 #warnings.filterwarnings('ignore')
 
 
+#image
+import tensorflow as tf
+import cv2
+from PIL import Image, ImageOps
+
+
+
+#model=load_model()
+
+
 def read_data():
     
     global df_yp,df_brickz,df_total_pop,df_detailed_pop
@@ -547,6 +557,26 @@ def gigi(result):
         return lat,lng      
                 #st.markdown(f'<p style="color:BLACK;font-weight: bold;font-size:14px;border-radius:2%;">{result}</p>', unsafe_allow_html=True)
 
+
+def load_model():
+  model=tf.keras.models.load_model('xception_version_1.h5')
+  return model
+
+def upload_predict(upload_image, model):
+    
+        size = (299,299)    
+        image = ImageOps.fit(upload_image, size, Image.ANTIALIAS)
+        image = np.asarray(image)
+        img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        img_resize = cv2.resize(img, dsize=(299,299),interpolation=cv2.INTER_CUBIC)
+        
+        img_reshape = img_resize[np.newaxis,...]
+    
+        prediction = model.predict(img_reshape)
+
+
+
+
 file = st.file_uploader("Upload the image to be classified", type=["jpg", "png"])
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
@@ -557,16 +587,35 @@ if(button):
     if(file):
         if(len(location)>0):
             try:
-                lat,lng=gigi(result)
-                fin= plot(location,lat,lng)
-                #msg1= predict(age,mood)
-                st.write(fin)
-                if st.button("Clear All"):
-                     st.experimental_memo.clear()
+                col1=st.columns(2)
+
+                with col1[0]:
+                    lat,lng=gigi(result)
+                    fin= plot(location,lat,lng)
+                    #msg1= predict(age,mood)
+                    st.write(fin)
+                    if st.button("Clear All"):
+                        st.experimental_memo.clear()
+                with col1[1]:
+                     image = Image.open(file)
+                     model = load_model()
+                     st.image(image, use_column_width=True)
+                     predictions = upload_predict(image, model)
+                     st.write("The prediction probabilities are: ", predictions)
+
+                        # Pie chart, where the slices will be ordered and plotted counter-clockwise:
+                     labels = 'CS', 'ED', 'FS', 'FNB', 'MS'
+
+                     fig1, ax1 = plt.subplots()
+                     ax1.pie(predictions.flatten(), labels=labels, autopct='%1.1f%%',
+                                shadow=True, startangle=90)
+                     ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+                     st.pyplot(fig1)
             #st.markdown(f'<p style="color:black;font-weight: bold;font-size:18px;">Here’s what we suggest: {}</p>', unsafe_allow_html=True)
             except:
                 msg2='Required Data are missing, Please key in all the data.'
                 st.markdown(f'<p style="color:red;font-weight: bold;font-size:18px; border-radius:2%;">{msg2}</p>', unsafe_allow_html=True)
     else:
-            st.text("Please upload an image file")
+            st.text("Please upload an image file to continue the process")
 
