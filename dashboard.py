@@ -556,6 +556,7 @@ if(button):
                 fin= plot(location,lat,lng)
                 #msg1= predict(age,mood)
                 st.write(fin)
+                st.write("ARpi")
                 if st.button("Clear All"):
                      st.experimental_memo.clear()
             #st.markdown(f'<p style="color:black;font-weight: bold;font-size:18px;">Here’s what we suggest: {}</p>', unsafe_allow_html=True)
