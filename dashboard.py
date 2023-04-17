@@ -601,7 +601,7 @@ if(button):
                      model = load_model()
                      #st.image(image, use_column_width=True)
                      predictions = upload_predict(image, model)
-                     st.write("The prediction probabilities are: ", predictions)
+                     st.write("The prediction probabilities based on Satelite Images")
 
                         # Pie chart, where the slices will be ordered and plotted counter-clockwise:
                      labels = 'CS', 'ED', 'FS', 'FNB', 'MS'
