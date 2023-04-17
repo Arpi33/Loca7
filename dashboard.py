@@ -599,7 +599,7 @@ if(button):
                 with col1[1]:
                      image = Image.open(file)
                      model = load_model()
-                     st.image(image, use_column_width=True)
+                     #st.image(image, use_column_width=True)
                      predictions = upload_predict(image, model)
                      st.write("The prediction probabilities are: ", predictions)
 
