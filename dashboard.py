@@ -546,21 +546,27 @@ def gigi(result):
         lng = result['GET_LOCATION']['lon']
         return lat,lng      
                 #st.markdown(f'<p style="color:BLACK;font-weight: bold;font-size:14px;border-radius:2%;">{result}</p>', unsafe_allow_html=True)
-           
+
+file = st.file_uploader("Upload the image to be classified", type=["jpg", "png"])
+st.set_option('deprecation.showfileUploaderEncoding', False)
+
+
 button = st.button("Recommend")
     
 if(button):
+    if(file):
         if(len(location)>0):
             try:
                 lat,lng=gigi(result)
                 fin= plot(location,lat,lng)
                 #msg1= predict(age,mood)
                 st.write(fin)
-                st.write("ARpi")
                 if st.button("Clear All"):
                      st.experimental_memo.clear()
             #st.markdown(f'<p style="color:black;font-weight: bold;font-size:18px;">Here’s what we suggest: {}</p>', unsafe_allow_html=True)
             except:
                 msg2='Required Data are missing, Please key in all the data.'
                 st.markdown(f'<p style="color:red;font-weight: bold;font-size:18px; border-radius:2%;">{msg2}</p>', unsafe_allow_html=True)
+        else:
+            st.text("Please upload an image file")
 

@@ -10,3 +10,6 @@ matplotlib
 matplotlib-inline
 bokeh==2.4.3
 streamlit-folium
+tensorflow
+keras
+cv2
