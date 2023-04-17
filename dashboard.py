@@ -573,7 +573,7 @@ def upload_predict(upload_image, model):
         img_reshape = img_resize[np.newaxis,...]
     
         prediction = model.predict(img_reshape)
-
+        return prediction 
 
 
 
