@@ -11,5 +11,5 @@ matplotlib-inline
 bokeh==2.4.3
 streamlit-folium
 tensorflow
+opencv-contrib-python-headless
 keras
-cv2
