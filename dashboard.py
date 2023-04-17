@@ -538,7 +538,7 @@ with col[1]:
           #st.write(result) 
         if result:
             st.markdown(f'<p style="color:green;font-weight: bold;font-size:14px;border-radius:2%;">{result}</p>', unsafe_allow_html=True)
-file = st.file_uploader("Upload the image to be classified U0001F447", type=["jpg", "png"])
+file = st.file_uploader("Upload the image to be classified Train By Deep Bayesian Ting", type=["jpg", "png"])
 st.set_option('deprecation.showfileUploaderEncoding', False)
           
 def gigi(result):
