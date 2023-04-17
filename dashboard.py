@@ -614,8 +614,8 @@ if(button):
                      st.pyplot(fig1)
             #st.markdown(f'<p style="color:black;font-weight: bold;font-size:18px;">Here’s what we suggest: {}</p>', unsafe_allow_html=True)
             except:
-                msg2='Required Data are missing, Please key in all the data.'
+                msg2='Sorry Server Got problem'
                 st.markdown(f'<p style="color:red;font-weight: bold;font-size:18px; border-radius:2%;">{msg2}</p>', unsafe_allow_html=True)
     else:
-            st.text("Please upload an image file to continue the process")
+            st.text("Required Data are missing, Please key in all the data")
 
