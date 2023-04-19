@@ -509,8 +509,20 @@ def plot(dic,lat,lng):
 
 
 from PIL import Image
+import requests
+from io import BytesIO
 
-image = Image.open('tm-life-made-easier.jpg')
+
+#code for satelite
+# MapQuest API endpoint for satellite imagery
+endpoint = 'https://www.mapquestapi.com/staticmap/v5/map'
+# MapQuest API key
+api_key = 'gAuiCam91jtc7sXtCTrdfFCTr7gXh6y1'
+
+
+
+#umage for title
+image = Image.open('tm_image.jpeg')
 image = image.resize((670, 200))
 st.image(image)
 
@@ -575,16 +587,38 @@ def upload_predict(upload_image, model):
         prediction = model.predict(img_reshape)
         return prediction 
 
+# Function to download a satellite image
+def download_satellite_image(lat, lng):
+    # Request parameters
+    params = {
+        'key': api_key,
+        'center': f'{lat},{lng}',
+        'zoom': 15,
+        'type': 'sat',
+        'size': '600,400'
+    }
+    
+    # Send a GET request to the endpoint with the parameters
+    response = requests.get(endpoint, params=params)
+    
+    # Check if the request was successful
+    if response.status_code != 200:
+        st.error('Error downloading image.')
+        return None
+    
+    # Convert the image data to a PIL Image object
+    image = Image.open(BytesIO(response.content))
+    
+    return image
 
-
-file = st.file_uploader("Upload the image to be classified", type=["jpg","jpeg", "png"])
-st.set_option('deprecation.showfileUploaderEncoding', False)
+#this part will be changed
+# file = st.file_uploader("Upload the image to be classified", type=["jpg","jpeg", "png"])
+# st.set_option('deprecation.showfileUploaderEncoding', False)
 
 
 button = st.button("Recommend")
     
 if(button):
-    if(file):
         if(len(location)>0):
             try:
                 col1=st.columns(2)
@@ -597,25 +631,26 @@ if(button):
                     if st.button("Clear All"):
                         st.experimental_memo.clear()
                 with col1[1]:
-                     image = Image.open(file)
-                     model = load_model()
-                     #st.image(image, use_column_width=True)
-                     predictions = upload_predict(image, model)
-                     st.write("The prediction probabilities based on Satelite Images")
+                     image1 = download_satellite_image(lat, lng)
+                    # Display the image
+                     if image1 is not None:
+                        model = load_model()
+                        #st.image(image, use_column_width=True)
+                        predictions = upload_predict(image1, model)
+                        st.write("The prediction probabilities based on Satelite Images")
 
-                        # Pie chart, where the slices will be ordered and plotted counter-clockwise:
-                     labels = 'CS', 'ED', 'FS', 'FNB', 'MS'
+                            # Pie chart, where the slices will be ordered and plotted counter-clockwise:
+                        labels = 'CS', 'ED', 'FS', 'FNB', 'MS'
 
-                     fig1, ax1 = plt.subplots()
-                     ax1.pie(predictions.flatten(), labels=labels, autopct='%1.1f%%',
-                                shadow=True, startangle=90)
-                     ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+                        fig1, ax1 = plt.subplots()
+                        ax1.pie(predictions.flatten(), labels=labels, autopct='%1.1f%%',
+                                    shadow=True, startangle=90)
+                        ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
-                     st.pyplot(fig1)
+                        st.pyplot(fig1)
             #st.markdown(f'<p style="color:black;font-weight: bold;font-size:18px;">Here’s what we suggest: {}</p>', unsafe_allow_html=True)
             except:
-                msg2='Sorry Server Got problem'
+                msg2='Sorry System Got problem'
                 st.markdown(f'<p style="color:red;font-weight: bold;font-size:18px; border-radius:2%;">{msg2}</p>', unsafe_allow_html=True)
-    else:
-            st.text("Required Data are missing, Please key in all the data")
-
+        else:
+                st.text("Required Data are missing, Please key in all the data")
