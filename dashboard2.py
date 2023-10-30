@@ -467,7 +467,7 @@ def get_similarity(dic,lat,lng):
     return similarity,dic
 
 
-@st.cache_data
+@st.experimental_memo
 def plot(dic,lat,lng):
     
     
@@ -502,8 +502,8 @@ def plot(dic,lat,lng):
         #if len(new_df)>3:
             if dic[0] not in new_df['business_name']:
                 plt.title('Selected business is not recommended for this location. You are recommended with these following businesses', fontsize = 8)
-    else:
-            plt.title('Businesses with potential success for given Location', fontsize = 10)
+    #else:
+            #plt.title('Businesses with potential success for given Location', fontsize = 10)
         #plt.show()
     return fig
 
@@ -528,7 +528,7 @@ st.image(image)
 
 
 #st.set_page_config(layout="wide")
-st.markdown("<h1 style='text-align: center; color: #5ca128;marginTop: -85px'>Location Analytics</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: white;marginTop: -85px'>Location Analytics</h1>", unsafe_allow_html=True)
 
 
 
@@ -625,8 +625,12 @@ if(button):
 
                 with col1[0]:
                     lat,lng=gigi(result)
+                    #st.write("The prediction probabilities based on Similarity Score")
+
                     fin= plot(location,lat,lng)
                     #msg1= predict(age,mood)
+                    st.write("The prediction probabilities based on Similarity Score")
+
                     st.write(fin)
                     if st.button("Clear All"):
                         st.experimental_memo.clear()
@@ -648,6 +652,7 @@ if(button):
                         ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
                         st.pyplot(fig1)
+                        st.write ("'CS': Consumer Shopping; 'ED': Education; 'FS': Financial Service; 'FNB': Food and Breverage; 'MS': Medical Service")
             #st.markdown(f'<p style="color:black;font-weight: bold;font-size:18px;">Here’s what we suggest: {}</p>', unsafe_allow_html=True)
             except:
                 msg2='Sorry System Got problem'
