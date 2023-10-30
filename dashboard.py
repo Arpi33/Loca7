@@ -577,7 +577,7 @@ def load_model():
 def upload_predict(upload_image, model):
     
         size = (299,299)    
-        image = ImageOps.fit(upload_image, size, Image.ANTIALIAS)
+        image = ImageOps.fit(upload_image, size, Image.LANCZOS)
         image = np.asarray(image)
         img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         img_resize = cv2.resize(img, dsize=(299,299),interpolation=cv2.INTER_CUBIC)
