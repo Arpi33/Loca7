@@ -620,7 +620,7 @@ button = st.button("Recommend")
     
 if(button):
         if(len(location)>0):
-            #try:
+            try:
                 col1=st.columns(2)
 
                 with col1[0]:
@@ -649,8 +649,8 @@ if(button):
 
                         st.pyplot(fig1)
             #st.markdown(f'<p style="color:black;font-weight: bold;font-size:18px;">Here’s what we suggest: {}</p>', unsafe_allow_html=True)
-            #except:
-             #   msg2='Sorry System Got problem'
-              #  st.markdown(f'<p style="color:red;font-weight: bold;font-size:18px; border-radius:2%;">{msg2}</p>', unsafe_allow_html=True)
+            except:
+                msg2='Sorry System Got problem'
+                st.markdown(f'<p style="color:red;font-weight: bold;font-size:18px; border-radius:2%;">{msg2}</p>', unsafe_allow_html=True)
         else:
                 st.text("Required Data are missing, Please key in all the data")
