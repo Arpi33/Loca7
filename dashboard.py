@@ -561,6 +561,8 @@ with col[1]:
         if result:
             st.markdown(f'<p style="color:green;font-weight: bold;font-size:14px;border-radius:2%;">{result}</p>', unsafe_allow_html=True)
 
+        #lat=st.number_input('lat')
+        #lng=st.number_input('lng')
 
           
 def gigi(result):
@@ -568,6 +570,8 @@ def gigi(result):
         lng = result['GET_LOCATION']['lon']
         return lat,lng      
                 #st.markdown(f'<p style="color:BLACK;font-weight: bold;font-size:14px;border-radius:2%;">{result}</p>', unsafe_allow_html=True)
+def gigi2(lat,lng):
+    return lat,lng
 
 
 def load_model():
